@@ -4,7 +4,7 @@
       "target_name": "binding",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "electron_thread.cc"],
+      "sources": [ "bug_repro.cc"],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
       ],
