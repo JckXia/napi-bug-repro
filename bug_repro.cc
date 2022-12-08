@@ -1,9 +1,7 @@
 #include <napi.h>
-
 #include <iostream>
-
 #include <thread>
- // using namespace Napi;
+
 
 class MyObjWrap: public Napi::ObjectWrap <MyObjWrap> {
 
@@ -81,7 +79,7 @@ void threadLoop() {
       }
 
       function.Call({
-        Napi::String::New(env, "hello world!"),
+        Napi::String::New(env, "hello from thread loop 1"),
         videoFrame
       });
     };
@@ -112,7 +110,7 @@ void threadLoop2() {
       }
 
       function.Call({
-        Napi::String::New(env, "hello world!"),
+        Napi::String::New(env, "hello from thread loop 2"),
         videoFrame
       });
     };
@@ -191,7 +189,10 @@ class CustomAddon: public Napi::Addon<CustomAddon> {
     return jsObject;
   }
 
+  // "Entry point to the application"
   CustomAddon(Napi::Env env, Napi::Object exports) {
+
+    // Initialize the three type of ObjectWraps
     myObjWrapCtr = MyObjWrap::Initialize(env);
     myObjWrapCtr1 = MyObjWrap1::Initialize(env);
     myObjWrapCtr2 = MyObjWrap2::Initialize(env);
@@ -207,9 +208,7 @@ class CustomAddon: public Napi::Addon<CustomAddon> {
 };
 
 NODE_API_ADDON(CustomAddon)
-// Napi::Object Init(Napi::Env env, Napi::Object exports) {
-
-// }
+ 
 // NODE_API_MODULE(addon, &CustomAddon::Init)
 // The macro announces that instances of the class CallasAddon will be
 // created for each instance of the add-on that must be loaded into Node.js.
